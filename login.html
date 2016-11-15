@@ -1,0 +1,36 @@
+<!-- <html>
+<head>
+<script src= "http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+<script src= "http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular-route.js"></script>
+<link rel="stylesheet" type="text/css" href="login.css">
+</head>
+
+<body>
+<script>
+</script>
+ -->
+<h1 style="text-align: center"> Login </h1>
+<div ng-app="myApp" ng-controller="loginController">
+<div style="text-align:center;align-content: center">
+	<form id="form" name="form">
+            <div>
+                <label><b>User Name:</b></label>
+                <div>
+                	<input type="text" placeholder="Enter Username" ng-model="user.name"/>
+            	</div>
+            </div>
+            <br>
+            <div>
+            	<label><b>Password:</b></label>
+            	<div>
+            		<input type="password" placeholder="Enter Password" ng-model="user.pass">
+            	</div>
+            </div>
+    </form>
+    <button id="loginButton" ng-click="login(user)">Login</button>
+</div>
+</div>
+
+<!-- <script src="app.js"></script>
+</body>
+</html> -->

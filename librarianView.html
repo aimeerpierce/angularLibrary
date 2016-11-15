@@ -1,0 +1,40 @@
+<div id="libraryDiv">
+	<div>
+		<table id="library" style="width:60%" border="2" cellpadding="2">
+<!-- 		  <tr>
+		    <th>Art Shelf</th>
+		    <th>Science Shelf</th>
+		    <th>Sport Shelf</th>
+			<th>Literature Shelf</th>
+			<th>Reference Shelf</th>
+		  </tr> -->
+		  <tr ng-repeat="shelf in library.books">
+		  	<td ng-repeat="book in shelf.Art">{{book.id}}</td>
+		  	<td ng-repeat="book in shelf.Science">{{book.id}}</td>
+		  	<td ng-repeat="book in shelf.Sport">{{book.id}}</td>
+		  	<td ng-repeat="book in shelf.Literature">{{book.id}}</td>
+		  	<td ng-repeat="book in shelf.Reference">{{book.id}}</td>
+		  </tr>
+
+		</table>
+	</div>
+	<br>
+	<div>
+		<form id="add" name="add">
+			<label><b>Book Title</b></label>
+			<input type="text" placeholder="Enter Title" name="title" ng-model="book.title">
+			<label><b>Shelf</b></label>
+			<select name="Shelves" ng-model="book.shelf">
+			  <option value="art">Art</option>
+			  <option value="science">Science</option>
+			  <option value="sport">Sport</option>
+			  <option value="lit">Literature</option>
+			</select>
+			<br>
+			<input type="checkbox" name="ordinary" ng-model="book.ordinary"> Ordinary Book <br>
+			<input type="checkbox" name="reference" ng-model="book.reference"> Reference Book <br>
+		</form>
+	</div>
+			<button id="addBook" ng-click="addBook(book)">Add Book</button>
+
+</div>
