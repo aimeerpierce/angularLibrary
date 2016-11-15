@@ -1,19 +1,12 @@
 <div id="libraryDiv">
 	<div>
 		<table id="library" style="width:60%" border="2" cellpadding="2">
-<!-- 		  <tr>
-		    <th>Art Shelf</th>
-		    <th>Science Shelf</th>
-		    <th>Sport Shelf</th>
-			<th>Literature Shelf</th>
-			<th>Reference Shelf</th>
-		  </tr> -->
 		  <tr ng-repeat="shelf in library.books">
-		  	<td ng-repeat="book in shelf.Art">{{book.id}}</td>
-		  	<td ng-repeat="book in shelf.Science">{{book.id}}</td>
-		  	<td ng-repeat="book in shelf.Sport">{{book.id}}</td>
-		  	<td ng-repeat="book in shelf.Literature">{{book.id}}</td>
-		  	<td ng-repeat="book in shelf.Reference">{{book.id}}</td>
+		  	<td ng-repeat="book in shelf.Art" ng-click="displayInfo(book)">{{book.id}}</td>
+		  	<td ng-repeat="book in shelf.Science" ng-click="displayInfo(book)">{{book.id}}</td>
+		  	<td ng-repeat="book in shelf.Sport" ng-click="displayInfo(book)">{{book.id}}</td>
+		  	<td ng-repeat="book in shelf.Literature" ng-click="displayInfo(book)">{{book.id}}</td>
+		  	<td ng-repeat="book in shelf.Reference" ng-click="displayInfo(book)">{{book.id}}</td>
 		  </tr>
 
 		</table>
