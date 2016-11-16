@@ -1,5 +1,9 @@
 var app = angular.module('myApp', ['ngRoute']);
 app.config(function ($routeProvider) {
+	$routeProvider.when("/index", {
+		controller: "indexController",
+		templateUrl: "index.html"
+	});
 	$routeProvider.when("/login", {
 		controller: "loginController",
 		templateUrl: "login.html"
@@ -19,35 +23,36 @@ app.service('library',function(){
 	return {
 		user: "",
 		librarian: false,
-		books:  [{"Art": [
+		books:  [{ name: "Art",
+					books: [
 					{id: 1, title: "Management of Art Galleries", type: "art", presence: 1, borrowedBy: "n/a"},
 					{id: 2, title: "Paint the Revolution: Mexican Modernism", type: "art", presence: 1, borrowedBy: "n/a"},
 					{id: 3, title: "Monet: The Early Years", type: "art", presence: 1, borrowedBy: "n/a"},
 					{id: 4, title: "Abstract Expressionism", type: "art", presence: 1, borrowedBy: "n/a"},
 					{id: 5, title: "Beyond Caravaggio", type: "art", presence: 1, borrowedBy: "n/a"},
 				]},
-				{"Science" : [
+				{ name: "Science", books:[
 					{id: 6, title: "A Brief History ofTime" , type: "science", presence: 1, borrowedBy: "n/a"},
 					{id: 7, title: "The Selfish Gene", type: "science", presence: 1, borrowedBy: "n/a"},
 					{id: 8, title: "A Short History of Nearly Everything", type: "science", presence: 1, borrowedBy: "n/a"},
 					{id: 9, title: "Rise of the Rocket Girls", type: "science", presence: 1, borrowedBy: "n/a"},
 					{id: 10, title: "Euclid's Elements", type: "science", presence: 1, borrowedBy: "n/a"},
 				]},
-				{"Sport": [
+				{name: "Sport", books: [
 					{id: 11, title: "Alone on the Wall", type: "sport", presence: 1, borrowedBy: "n/a"},
 					{id: 12, title: "Mountaineering: Freedom of the Hills", type: "sport", presence: 1, borrowedBy: "n/a"},
 					{id: 13, title: "Vertical Mind", type: "sport", presence: 1, borrowedBy: "n/a"},
 					{id: 14, title: "Girl on the Rocks", type: "sport", presence: 1, borrowedBy: "n/a"},
 					{id: 15, title: "Climbing Free", type: "sport", presence: 1, borrowedBy: "n/a"},
 				]},
-				{"Literature": [
+				{name:"Literature", books: [
 					{id: 16, title: "Pride and Prejudice", type: "literature", presence: 1, borrowedBy: "n/a"},
 					{id: 17, title: "Sense and Sensibility", type: "literature", presence: 1, borrowedBy: "n/a"},
 					{id: 18, title: "The Wise Man's Fear", type: "literature", presence: 1, borrowedBy: "n/a"},
 					{id: 19, title: "1984", type: "literature", presence: 1, borrowedBy: "n/a"},
 					{id: 20, title: "Fahrenheit 451", type: "literature", presence: 1, borrowedBy: "n/a"},
 				]},
-				{"Reference": [
+				{name:"Reference", books: [
 					{id: 1, title: "Reference Book 1", type: "reference", presence: 1, borrowedBy: "n/a"},
 					{id: 2, title: "Reference Book 2", type: "reference", presence: 1, borrowedBy: "n/a"},
 					{id: 3, title: "Reference Book 3", type: "reference", presence: 1, borrowedBy: "n/a"},
