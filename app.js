@@ -23,7 +23,8 @@ app.service('library',function(){
 	return {
 		user: "",
 		librarian: false,
-		books:  [{ name: "Art",
+		totalBooks: 20,
+		shelves:  [{ name: "Art",
 					books: [
 					{id: 1, title: "Management of Art Galleries", type: "art", presence: 1, borrowedBy: "n/a"},
 					{id: 2, title: "Paint the Revolution: Mexican Modernism", type: "art", presence: 1, borrowedBy: "n/a"},
@@ -97,6 +98,22 @@ app.controller('librarianController', ['$scope','library', function($scope,libra
 
 	$scope.addBook = function(book){
 		//book.(title)(shelf)(ordinary)(reference)
+		var myBook = {
+			id: library.totalBooks+1,
+			title: book.title,
+			type: book.shelf,
+			presence: 1,
+			borrowedBy: "n/a"
+		};
+		var row = -1;
+		if(book.shelf === "Art"){row = 0;}
+		if(book.shelf === "Science"){row = 1;}
+		if(book.shelf === "Sport"){row = 2;}
+		if(book.shelf === "Literature"){row = 3;}
+		if(row != -1){
+			library.shelves[row].books.push(myBook);
+			library.totalBooks++;
+		}
 	};
 }]);
 

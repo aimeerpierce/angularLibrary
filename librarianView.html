@@ -1,7 +1,7 @@
 <div id="libraryDiv">
 	<div>
 		<table id="library" style="width:60%" border="2" cellpadding="2">
-		  <tr ng-repeat="shelf in library.books">
+		  <tr ng-repeat="shelf in library.shelves">
 		  	<td>{{shelf.name}}</td>
 		  	<td ng-repeat="book in shelf.books" ng-click="displayInfo(book)">{{book.id}}</td>
 <!-- 		  	<td ng-repeat="book in shelf.Science" ng-click="displayInfo(book)">{{book.id}}</td>
@@ -19,10 +19,10 @@
 			<input type="text" placeholder="Enter Title" name="title" ng-model="book.title">
 			<label><b>Shelf</b></label>
 			<select name="Shelves" ng-model="book.shelf">
-			  <option value="art">Art</option>
-			  <option value="science">Science</option>
-			  <option value="sport">Sport</option>
-			  <option value="lit">Literature</option>
+			  <option value="Art">Art</option>
+			  <option value="Science">Science</option>
+			  <option value="Sport">Sport</option>
+			  <option value="Literature">Literature</option>
 			</select>
 			<br>
 			<input type="checkbox" name="ordinary" ng-model="book.ordinary"> Ordinary Book <br>
