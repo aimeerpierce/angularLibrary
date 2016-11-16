@@ -1,0 +1,11 @@
+Aimee Pierce
+	index.html
+	login.html
+	login.css
+	librarianView.html
+	app.js
+		app.config
+		app.service
+		app.controller('indexController')
+		app.controller('loginController')
+		app.controller('librarianController')

@@ -119,7 +119,5 @@ app.controller('librarianController', ['$scope','library', function($scope,libra
 
 app.controller('studentController', ['$scope','library',function($scope,library) {
 	$scope.name = "studentView";
-  $scope.address = "Death Star";
-	$scope.message2 = "Excellent! Thank you!";
 }]);
 
