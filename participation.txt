@@ -9,3 +9,11 @@ Aimee Pierce
 		app.controller('indexController')
 		app.controller('loginController')
 		app.controller('librarianController')
+
+Lige Liu
+	index.html
+	login.css
+	StudentView.html
+	app.js
+		app.controller('studentController')
+		app.controller('loginController')

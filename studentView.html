@@ -1,11 +1,31 @@
-<div id="StudentDiv">
-		<table id="studentLibrary" style="width:60%" border="2" cellpadding="2">
-		  <tr>
-		    <th>Art Shelf</th>
-		    <th>Science Shelf</th>
-		    <th>Sport Shelf</th>
-			<th>Literature Shelf</th>
-			<th>Reference Shelf</th>
-		  </tr>
-		</table>
+<div id="studentDiv">
+    <div>
+        <h2>{{name}}</h2>
+        <button ng-click="checkPresence()" >Check Presence</button>
+    </div>
+
+    <div>
+        <table id="StudentLibrary" style="width:60%" border="2" cellpadding="2" ng-model="table">
+            <tr ng-repeat="shelf in library.shelves">
+                <td>{{shelf.name}}</td>
+                <td ng-repeat="book in shelf.books" ng-click="displayInfo(book)">{{book.id}}</td>
+            </tr>
+
+        </table>
+    </div>
+    <br>
+    <div>
+        <br /><br />
+        <label>First Book</label>
+        <input type="text" id="b1" placeholder="Enter ID to borrow" ng-model="book1"/>
+
+        <label>Second Book</label>
+        <input type="text" id="b2" placeholder="Enter ID to borrow" ng-model="book2"/><br /><br />
+
+        <input type="button" id="borrow" value="Borrow" ng-click="borrow()"/><br /><br /><br /><br />
+
+        <input typw="text" id="r1" placeholder="Enter ID to return" ng-model="returnID"  /><br /><br />
+        <input type="button" id="return" value="Return" ng-click="return()" />
+    </div>
+
 </div>

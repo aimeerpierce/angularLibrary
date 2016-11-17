@@ -1,4 +1,5 @@
 var app = angular.module('myApp', ['ngRoute']);
+var name;
 app.config(function ($routeProvider) {
 	$routeProvider.when("/index", {
 		controller: "indexController",
@@ -51,7 +52,7 @@ app.service('library',function(){
 					{id: 17, title: "Sense and Sensibility", type: "literature", presence: 1, borrowedBy: "n/a"},
 					{id: 18, title: "The Wise Man's Fear", type: "literature", presence: 1, borrowedBy: "n/a"},
 					{id: 19, title: "1984", type: "literature", presence: 1, borrowedBy: "n/a"},
-					{id: 20, title: "Fahrenheit 451", type: "literature", presence: 1, borrowedBy: "n/a"},
+					{id: 20, title: "Fahrenheit 451", type: "literature", presence: 0, borrowedBy: "1"},
 				]},
 				{name:"Reference", books: [
 					{id: 1, title: "Reference Book 1", type: "reference", presence: 1, borrowedBy: "n/a"},
@@ -71,10 +72,10 @@ app.controller('loginController', ['$scope','$location','library',function($scop
   $scope.login = function(user){
   	var myName = user.name;
   	var myPass = user.pass;
-
+  	name = user.name;
   	if(myName === "admin" && myPass === "admin"){
   	  	$location.path('/librarianView');
-  	} else if(myName.charAt(0) === 'U' || name.charAt == 'u'){
+  	} else if (myName.charAt(0) === 'U' || name.charAt == 'u' || myName.charAt(0) === 'u') {
   		$location.path('/studentView');
   	} else {
   		alert("Incorrect username/password");
@@ -118,6 +119,123 @@ app.controller('librarianController', ['$scope','library', function($scope,libra
 }]);
 
 app.controller('studentController', ['$scope','library',function($scope,library) {
-	$scope.name = "studentView";
-}]);
+    $scope.name = "Student:";
+    $scope.library = library;
 
+    $scope.checkPresence = function () {
+        for (var i = 0; i < library.shelves.length; i++) {
+            for (var j = 0; j < library.shelves[i].books.length; j++) {
+                if (library.shelves[i].books[j].presence === 0) {
+                    var x = document.getElementById("StudentLibrary");
+                    x.rows[i].cells[j + 1].style.backgroundColor = "red";
+                }
+            }
+        }
+    }
+
+    $scope.displayInfo = function (book) {
+        var status = " ";
+        if (book.presence == 1) {
+            status = "Present";
+        } else {
+            status = "Checked Out";
+        }
+        alert("Title: " + book.title + "; Type: " + book.type + "; Status: " + status + "; Borrowed By: " + book.borrowedBy + ";");
+    };
+
+    $scope.borrow = function () {
+        //alert($scope.table);
+        var regex = /^[0-9]+$/;
+        var s1 = false;
+        var s2 = false;
+        if ($scope.book1 === "" || $scope.book1 == null ) {
+            alert("Book ID cannot be empty");
+        }
+        else if (!$scope.book1.match(regex) || !($scope.book2 === "" || $scope.book2 == null) && !$scope.book2.match(regex)) {
+            alert("Please enter number");
+        }
+        else {
+            var count = 0;
+                for (var i = 0; i < library.shelves.length; i++) {
+                    for (var j = 0; j < library.shelves[i].books.length; j++) {
+                        if (library.shelves[i].books[j].borrowedBy == name) {
+                            count++;
+                        }
+                        if (library.shelves[i].books[j].id == $scope.book1 && library.shelves[i].books[j].type !== "reference") {
+                            if(library.shelves[i].books[j].presence===0){
+                                alert("Book(" + $scope.book1 + ") is unavailable!");
+                            }
+                            else if (count >= 2) {
+                                alert("You can only borrow 2 books! Book(" + $scope.book1 + ") will be returned to shelf!");
+                            }
+                            else {
+                                library.shelves[i].books[j].presence = 0;
+                                library.shelves[i].books[j].borrowedBy = name;
+                                var x = document.getElementById("StudentLibrary");
+                                x.rows[i].cells[j + 1].style.backgroundColor = "red";
+                                count++;
+                            }
+                            s1 = true;
+                        }
+                        else if (library.shelves[i].books[j].id == $scope.book2 && library.shelves[i].books[j].type !== "reference") {
+                            if (library.shelves[i].books[j].presence === 0) {
+                                alert("Book(" + $scope.book1 + ") is unavailable!");
+                            }
+                            else if (count >= 2) {
+                                alert("You can only borrow 2 books! Book(" + $scope.book2 + ") will be returned to shelf!");
+                            }
+                            else {
+                                library.shelves[i].books[j].presence = 0;
+                                library.shelves[i].books[j].borrowedBy = name;
+                                var x = document.getElementById("StudentLibrary");
+                                x.rows[i].cells[j + 1].style.backgroundColor = "red";
+                                count++;
+                            }
+                            s2 = true;
+                        }
+                    }
+                }
+                if (s1 == false) {
+                    alert("Book(" + $scope.book1 + ")is not on the shelf!");
+                }
+                if ( !($scope.book2 === "" || $scope.book2 == null) && $scope.book2.match(regex) && s2 == false) {
+                    alert("Book(" + $scope.book2 + ")is not on the shelf!");
+                }
+        }
+
+        $scope.book1 = "";
+        $scope.book2 = "";
+    }
+
+    $scope.return = function () {
+        var regex = /^[0-9]+$/;
+        if ($scope.returnID === "" || $scope.returnID == null) {
+            alert("Book ID cannot be empty");
+        }
+        else if (!$scope.returnID.match(regex)) {
+            alert("Please enter number");
+        }
+        else {
+            for (var i = 0; i < library.shelves.length; i++) {
+                for (var j = 0; j < library.shelves[i].books.length; j++) {
+                    if (library.shelves[i].books[j].id == $scope.returnID) {
+                        if (library.shelves[i].books[j].presence === 1 && library.shelves[i].books[j].type !== "reference") {
+                            alert("This book has not been borrowed yet!");
+                        }
+                        else if (library.shelves[i].books[j].borrowedBy !== name && library.shelves[i].books[j].type !== "reference") {
+                            alert("This book is borrowed by others. You cannot return it!");
+                        }
+                        else {
+                            library.shelves[i].books[j].presence = 1;
+                            library.shelves[i].books[j].borrowedBy = "n/a";
+                            var x = document.getElementById("StudentLibrary");
+                            x.rows[i].cells[j + 1].style.backgroundColor = "white";
+                        }
+                    }
+
+                }
+            }
+        }
+        $scope.returnID = "";
+    }
+}]);
